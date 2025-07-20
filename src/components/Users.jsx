@@ -19,6 +19,10 @@ const Users = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        if (data.insertedId) {
+          alert("user addaded successfully");
+          e.target.reset();
+        }
       });
   };
   return (
