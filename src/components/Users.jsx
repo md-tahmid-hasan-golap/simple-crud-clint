@@ -7,6 +7,19 @@ const Users = () => {
     const email = e.target.email.value;
     const newUser = { name, email };
     console.log(newUser);
+
+    //creat user in the data base
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
   return (
     <div>
