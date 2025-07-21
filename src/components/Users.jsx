@@ -1,6 +1,9 @@
-import React from "react";
+import React, { use, useState } from "react";
 
-const Users = () => {
+const Users = ({ userPromisd }) => {
+  const loadedUserData = use(userPromisd);
+  //   console.log(loadedUserData);
+  const [users, setUsers] = useState(loadedUserData);
   const handleAddUser = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -20,7 +23,10 @@ const Users = () => {
       .then((data) => {
         console.log(data);
         if (data.insertedId) {
-          alert("user addaded successfully");
+          newUser._id = data.insertedId;
+          const newUsers = [...users, newUser]; // ✅ ঠিক করা
+          setUsers(newUsers);
+          alert("user added successfully");
           e.target.reset();
         }
       });
@@ -36,6 +42,14 @@ const Users = () => {
           <br />
           <input type="submit" value="add user" />
         </form>
+      </div>
+      {/* view user */}
+      <div>
+        {users.map((user) => (
+          <p key={user._id}>
+            Name: {user.name} ,Email: {user.email}
+          </p>
+        ))}
       </div>
     </div>
   );
